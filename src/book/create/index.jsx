@@ -237,7 +237,7 @@ const AddBook = () => {
     const newGenresList = [];
 
       if(genres.length !== 0){
-        for (let i = 0; i < authors.length; i++) {
+        for (let i = 0; i < genres.length; i++) {
               newGenresList.push({name: genres[i].title, label: genres[i].title, id: genres[i]?._id});
         }
 
@@ -245,6 +245,7 @@ const AddBook = () => {
       }
       
     }
+    console.log("Saron Berhaneee",genreDropDown,genres,selectedGenresList)
 
   const fetchAllAuthors = async () => {
     setIsLoading(true);
@@ -263,6 +264,7 @@ const AddBook = () => {
 
     if (response?.data?.status === "SUCCESS") {
         setGenres(response.data?.data?.genre);
+        organizeGenresList();
     }
 
     setIsLoading(false);
@@ -279,11 +281,10 @@ const AddBook = () => {
   useEffect(()=>{
     fetchAllGenres()
   }, [])
- 
+
   useEffect(()=>{
     organizeGenresList()
-  }, [genres])
-
+  }, [genres.length])
 
 
   return (
@@ -388,7 +389,7 @@ const AddBook = () => {
             width={300}
             components={["DateTimePicker", "DateTimePicker"]}
           >
-            <DemoItem label="published date">
+            <DemoItem label="Birth date">
               <DateTimePicker
                 defaultValue={dayjs(new Date(date))}
                 onChange={(newValue) => setDate(newValue.$d)}
@@ -445,7 +446,7 @@ const AddBook = () => {
             selectGenre(e.target.value);
           }}
         >
-          {genreDropDown.map((option) => (
+          {genreDropDown.length > 0 && genreDropDown.map((option) => (
             <MenuItem key={option.id} value={option.name}>
               {option.name}
             </MenuItem>

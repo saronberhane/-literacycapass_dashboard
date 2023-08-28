@@ -41,8 +41,9 @@ const Dashboard = () => {
 
     try {
       const response = await axios.get("/dashboard/amounts");
-
-      setAmounts(response.data.data.amount);
+        if (response.data.status === "SUCCESS"){
+          setAmounts(response?.data?.data?.amount);
+        }
 
     } catch (error) {
       toast.error(error.response?.data?.message);
@@ -52,9 +53,9 @@ const Dashboard = () => {
 
     try {
       const response = await axios.get("/dashboard/userstat");
-
-      setStats(response.data.data.readableData);
-      console.log(stats, response.data.data.readableData)
+        if (response.data.status === "SUCCESS"){
+          setStats(response?.data?.data?.readableData);
+        }
 
     } catch (error) {
       console.log(error)
