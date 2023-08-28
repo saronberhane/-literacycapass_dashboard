@@ -241,7 +241,7 @@ const EditBook = () => {
     const newGenresList = [];
 
       if(genres.length !== 0){
-        for (let i = 0; i < authors.length; i++) {
+        for (let i = 0; i < genres.length; i++) {
               newGenresList.push({name: genres[i].title, label: genres[i].title, id: genres[i]?._id});
         }
 
@@ -292,6 +292,7 @@ const EditBook = () => {
 
     if (response?.data?.status === "SUCCESS") {
         setGenres(response.data?.data?.genre);
+        organizeGenresList()
     }
 
     setIsLoading(false);
@@ -320,7 +321,7 @@ const EditBook = () => {
  
   useEffect(()=>{
     organizeGenresList()
-  }, [genres])
+  }, [genres.length])
 
 
   return (
@@ -504,7 +505,7 @@ const EditBook = () => {
           variant="contained"
           onClick={handleSubmit}
         >
-          EDIT
+          SAVE
         </Button>
       </Box>
     </Box>
